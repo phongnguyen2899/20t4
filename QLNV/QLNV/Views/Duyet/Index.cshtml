@@ -1,0 +1,360 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<QLNV.Viewmodels.DuyetNhanVienViewModel>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link href="~/Bootsrap/bootstrap-4.0.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style type="text/css">
+    </style>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0px;
+            font-family: "Helvetica";
+        }
+        a{
+            color:white !important;
+        }
+        body {
+            margin: 0 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #dee2e6;
+        }
+
+        tr:first-child {
+            background: #212529;
+            color: white;
+        }
+
+        th {
+            height: 40px;
+            text-align: left;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .search {
+        }
+
+            .search input {
+            }
+
+            .search a {
+            }
+
+        .header {
+            margin-top: 10px;
+            display: flex;
+            height: 38px;
+            align-items: center;
+        }
+
+        .search_header {
+            display: flex;
+        }
+
+            .search_header .btn_search {
+                background-color: #4e92df;
+                border: none;
+                color: white;
+                text-align: center;
+                text-decoration: none;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+                height: 100%;
+                margin: 0;
+                padding: 10px 20px;
+            }
+
+            .search_header input:first-child {
+                width: 200px;
+                margin-right: 10px;
+                outline: none;
+                padding-left: 10px;
+                border: 1px solid #4e92df;
+            }
+
+        .link_btn {
+            background-color: #4e92df;
+            font-size: 16px;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 2px;
+        }
+
+        .btn_search:hover {
+            background: #2e7dd6;
+            transition: 0,4s;
+        }
+
+        .link_btn:hover {
+            background: #2e7dd6;
+            transition: 0,4s;
+        }
+
+        .dowload {
+        }
+
+        .view:hover {
+            color: #2e7dd6;
+        }
+        .filter_item{
+            margin-right:20px;
+        }
+        .filter_item label {
+            height: 100%;
+        }
+            .filter_item select {
+                height: 100%;
+                border: 1px solid #4e92df;
+            }
+        .filter_item input{
+            height:100%;
+        }
+
+    </style>
+</head>
+<body>
+
+
+    <div class="header">
+
+        <form class="search_header" asp-controller="Duyet" asp-action="Index" method="Get">
+            <div class="filter_item">
+                <input placeholder="Nhập tên nhân viên" class="" type="text" name="search" />
+                <input type="submit" value="Tim kiem nang cao" class="btn btn-primary" />
+            </div>
+
+            <div class="filter_item">
+                <label>Vị trí</label>
+                <select class="form-select" name="vitri">
+                    <option value="0">Chọn Vị trí</option>
+                    @foreach (var item in ViewBag.VitriSearch)
+                    {
+                        <option value="@item.Id">@item.Tenvitri</option>
+                    }
+                </select>
+            </div>
+
+            <div class="filter_item">
+                <label>Chức vụ</label>
+                <select class="form-select" name="chucvu">
+                    <option value="0">Chọn chức vụ</option>
+                    @foreach (var item in ViewBag.ChucvuSearch)
+                    {
+                        <option value="@item.Id">@item.Tenchucvu</option>
+                    }
+                </select>
+            </div>
+            <input class="btn btn-primary" type="submit" value="Tìm Kiếm" />
+        </form>
+        <div class="filter">
+
+        </div>
+    </div>
+
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Tên chức vụ</th>
+            <th>Tên vị trí</th>
+            <th>Tên NV</th>
+            <th>Ngày sinh</th>
+            <th>Địa chỉ</th>
+            <th>Người Giới thiệu</th>
+            <th>Hành động</th>
+
+        </tr>
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Tenchucvu</td>
+                <td>@item.Tenvitri</td>
+                <td>@item.Ten</td>
+                <td>@item.Ngaysinhh</td>
+                <td>@item.Diachi</td>
+                <td>@item.Nguoigioithieu</td>
+                <td>
+                    <a class="xoabnt" onclick="deletenv(@item.Id)" id="@item.Id" href="Home/Edit/@item.Id">Sửa</a>
+                    <a href="#" id="@item.Id" onclick="deleteconfirm(@item.Id)">Xóa</a>
+                </td>
+
+                <td>
+                    @if (item.CV != null)
+                    {
+                        @if (item.CV.Split(".").Last() == "pdf")
+                        {
+                            <a title="Click để xem cv" id="bntduyet_@item.Id" onclick="redPDF(@item.Id)" class="btn btn-primary" data-toggle="modal" data-book-id="@item.Id" data-pdf="@item.CV" data-target="#exampleModal">XemCV</a>
+
+                            <div id="ModalPDF">
+
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <embed id="ViewPDF" src="~/uploads/@item.CV" class="w-100" />
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" id="btn_@item.Id" onclick="loaiungvien()" class="btn btn-danger" data-dismiss="modal">Loại</button>
+                                                <button onclick="duyetungvien()" type="button" class="btn btn-success">Duyệt</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            var a = item.CV.Split(".").Last();
+                            <a class="btn btn-primary" title="Click để tải cv" href="Home/Dowloadfile/@item.CV">Tải CV</a>
+                            <a onclick="duyetungvien(@item.Id)" id="bntduyet_@item.Id" class="btn btn-success">Duyệt</a>
+                            <a onclick="loaiungvien(@item.Id)" id="bntduyet_@item.Id" class="btn btn-danger">Loại</a>
+                        }
+                    }
+
+
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="~/Bootsrap/bootstrap-4.0.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
+<script>
+
+    //id cua item;
+    var ID = 0;
+    $('#exampleModal').on('show.bs.modal', function (e) {
+        ID = $(e.relatedTarget).data('book-id');
+        var filePDF = $(e.relatedTarget).data('pdf');
+        console.log(filePDF)
+        document.getElementById("ViewPDF").style.src = "~/uploads/" + filePDF;
+    });
+
+    function redPDF(id) {
+
+        //mo modal truyen id item cho modal
+        ID = id;
+        //var dataPDF=
+        var modalPDF = document.getElementById("ModalPDF");
+        console.log(id)
+        var btn = document.getElementById("bntduyet_" + id + "");
+        console.log(modalPDF);
+        console.log(btn.getAttribute('data-pdf'));
+        var html = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <iframe src="/uploads/${btn.getAttribute('data-pdf')}" title="W3Schools Free Online Web Tutorials"></iframe>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" id="btn_${id}" onclick="loaiungvien(${id})" class="btn btn-danger" data-dismiss="modal">Loại</button>
+                                                <button onclick="duyetungvien(${id})" type="button" class="btn btn-success">Duyệt</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                    `;
+        modalPDF.innerHTML = html;
+
+        setTimeout(5000, function () {
+            $("#myModal").on("show.bs.modal", function (e) {
+                var embed = document.getElementById("ViewPDF")
+                console.log(embed)
+            });
+        })
+        
+    }
+
+    function aa() {
+       
+    }
+    var baseUrl = "/Duyet/Duyet/";
+    function duyetungvien(id) {
+
+
+
+        fetch(baseUrl + "" + id + "")
+            .then(response => response.json())
+            .then(function (data) {
+                var obj = JSON.parse(JSON.stringify(data))
+                console.log(obj.mes)
+                if (obj.mes == "thanh cong") {
+
+                    var btnduyet = document.getElementById("bntduyet_" + + id + "");
+                    var action = btnduyet.parentElement;
+                    var tr = action.parentElement;
+                    tr.style.display = 'none';
+                    alert("thanh cong");
+                }
+            })
+    }
+
+    function loaiungvien(id) {
+        var baseurl = "/Duyet/Loai/"
+        fetch(baseurl + "" + id + "")
+            .then(response => response.json())
+            .then(function (data) {
+                var obj = JSON.parse(JSON.stringify(data))
+                console.log(obj.mes)
+                if (obj.mes == "thanh cong") {
+                    var btnduyet = document.getElementById("bntduyet_" + + id + "");
+
+                    var action = btnduyet.parentElement;
+                    var tr = action.parentElement;
+                    tr.style.display = 'none';
+                    alert("thanh cong");
+                }
+            })
+    }
+
+
+</script>

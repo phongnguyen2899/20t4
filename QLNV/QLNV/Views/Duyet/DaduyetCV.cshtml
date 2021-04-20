@@ -1,0 +1,296 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<QLNV.Viewmodels.DuyetNhanVienViewModel>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link href="~/Bootsrap/bootstrap-4.0.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style type="text/css">
+    </style>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0px;
+            font-family: "Helvetica";
+        }
+
+        a {
+            color: white !important;
+        }
+
+        body {
+            margin: 0 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #dee2e6;
+        }
+
+        tr:first-child {
+            background: #212529;
+            color: white;
+        }
+
+        th {
+            height: 40px;
+            text-align: left;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .search {
+        }
+
+            .search input {
+            }
+
+            .search a {
+            }
+
+        .header {
+            margin-top: 10px;
+            display: flex;
+            height: 38px;
+            align-items: center;
+        }
+
+        .search_header {
+            display: flex;
+        }
+
+            .search_header .btn_search {
+                background-color: #4e92df;
+                border: none;
+                color: white;
+                text-align: center;
+                text-decoration: none;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+                height: 100%;
+                margin: 0;
+                padding: 10px 20px;
+            }
+
+            .search_header input:first-child {
+                width: 200px;
+                margin-right: 10px;
+                outline: none;
+                padding-left: 10px;
+                border: 1px solid #4e92df;
+            }
+
+        .link_btn {
+            background-color: #4e92df;
+            font-size: 16px;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 2px;
+        }
+
+        .btn_search:hover {
+            background: #2e7dd6;
+            transition: 0,4s;
+        }
+
+        .link_btn:hover {
+            background: #2e7dd6;
+            transition: 0,4s;
+        }
+
+        .dowload {
+        }
+
+        .view:hover {
+            color: #2e7dd6;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-item">
+            <button class="btn btn-primary">Gửi Mail</button>
+        </div>
+        <div class="header-item">
+            <button class="btn btn-primary">Tạo Nội Dung Gửi Mail</button>
+        </div>
+
+    </div>
+    <table>
+        <tr>
+            <th>
+                <input id="allcheckbox" type="checkbox" onchange="checkall(this)" />
+            </th>
+            <th>ID</th>
+            <th>Chức vụ</th>
+            <th>Vị Trí</th>
+            <th>Tên</th>
+            <th>SDT</th>
+            <th>Liên Hệ</th>
+            <th>Thời gian PV</th>
+            <th>Địa điểm PV</th>
+            <th>Trạng Thái</th>
+            <th>Điểm bài test</th>
+            <th>Hành động</th>
+        </tr>
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <input class="checktosendmail" type="checkbox" />
+                </td>
+                <td>@item.Id</td>
+                <td>@item.Tenchucvu</td>
+                <td>@item.Tenvitri</td>
+                <td>@item.Ten</td>
+                <td>@item.SDT</td>
+                <td>@item.Trangthailienhe</td>
+                <td>@item.ThoigianPV</td>
+                <td>@item.DiadiemPV</td>
+                <td>@item.Trangthai</td>
+                <td>
+                    @switch (item.Trangthai)
+                    {
+
+                    }
+                </td>
+                <td>
+                    <button onclick="showformmail(@item.Id)" type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">Preview Mail</button>
+                    <button type="button" class="btn btn-primary">Update</button>
+                </td>
+            </tr>
+        }
+    </table>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Tiêu đề</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="tieude">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Nội dung</label>
+                                <textarea class="form-control" name="noidung" cols="40" rows="5"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="~/Bootsrap/bootstrap-4.0.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
+<script>
+
+    var obj = [];
+
+    var objchangemail = [];
+
+    function showformmail(id) {
+        var html = "";
+        var url = "/Duyet/GetformMail/" + id + "";
+        fetch(url)
+            .then(response => response.json())
+            .then(function (data) {
+                var modal
+                console.log(data)
+                html = `<!-- Modal -->
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Tiêu đề</label>
+                                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="tieude">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputPassword1">Nội dung</label>
+                                                    <textarea class="form-control" name="noidung" cols="40" rows="5"></textarea>
+                                                </div>
+
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </form>
+                    
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+
+            })
+    }
+
+    function render() {
+
+    }
+    
+
+
+    function checkall(checkbox) {
+        if (checkbox.checked == true) {
+            var ckeckalltomail = document.getElementsByClassName('checktosendmail');
+            for (var i = 0; i < ckeckalltomail.length; i++) {
+                ckeckalltomail[i].checked=true
+            }
+        }
+        else {
+            var ckeckalltomail = document.getElementsByClassName('checktosendmail');
+            for (var i = 0; i < ckeckalltomail.length; i++) {
+                ckeckalltomail[i].checked = false
+                obj = null;
+            }
+        }
+    }
+</script>

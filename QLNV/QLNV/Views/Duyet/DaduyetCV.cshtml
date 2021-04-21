@@ -194,7 +194,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div id="modalmail" class="modal-body">
+                    <!--
                         <form>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Tiêu đề</label>
@@ -207,6 +208,9 @@
 
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
+
+                        -->
+                    -->
                     
                 </div>
                 <div class="modal-footer">
@@ -236,40 +240,26 @@
             .then(function (data) {
                 var modal
                 console.log(data)
-                html = `<!-- Modal -->
-                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                            <form>
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">Tiêu đề</label>
-                                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="tieude">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputPassword1">Nội dung</label>
-                                                    <textarea class="form-control" name="noidung" cols="40" rows="5"></textarea>
-                                                </div>
+                var obj = JSON.parse(JSON.stringify(data))
 
-                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                            </form>
-                    
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </div>
+                html = `<form>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">${obj.title}</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="tieude">
                             </div>
-                        </div>`;
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">${obj.noidung}</label>
+                                <textarea class="form-control" name="noidung" cols="40" rows="5"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>`;
+
+                var modal = document.getElementById('modalmail');
+                modal.innerHTML = html;
 
             })
+       
     }
 
     function render() {

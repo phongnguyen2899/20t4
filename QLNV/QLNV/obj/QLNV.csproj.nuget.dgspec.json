@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\PhongNV\\Documents\\Phong\\SSV\\QLNV\\QLNV\\QLNV.csproj": {}
+    "C:\\Users\\Phong\\Desktop\\20t4\\QLNV\\QLNV\\QLNV.csproj": {}
   },
   "projects": {
-    "C:\\Users\\PhongNV\\Documents\\Phong\\SSV\\QLNV\\DATA\\DATA.csproj": {
+    "C:\\Users\\Phong\\Desktop\\20t4\\QLNV\\DATA\\DATA.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PhongNV\\Documents\\Phong\\SSV\\QLNV\\DATA\\DATA.csproj",
+        "projectUniqueName": "C:\\Users\\Phong\\Desktop\\20t4\\QLNV\\DATA\\DATA.csproj",
         "projectName": "DATA",
-        "projectPath": "C:\\Users\\PhongNV\\Documents\\Phong\\SSV\\QLNV\\DATA\\DATA.csproj",
-        "packagesPath": "C:\\Users\\PhongNV\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PhongNV\\Documents\\Phong\\SSV\\QLNV\\DATA\\obj\\",
+        "projectPath": "C:\\Users\\Phong\\Desktop\\20t4\\QLNV\\DATA\\DATA.csproj",
+        "packagesPath": "C:\\Users\\Phong\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Phong\\Desktop\\20t4\\QLNV\\DATA\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\PhongNV\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Phong\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -76,21 +76,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\PhongNV\\Documents\\Phong\\SSV\\QLNV\\QLNV\\QLNV.csproj": {
+    "C:\\Users\\Phong\\Desktop\\20t4\\QLNV\\QLNV\\QLNV.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PhongNV\\Documents\\Phong\\SSV\\QLNV\\QLNV\\QLNV.csproj",
+        "projectUniqueName": "C:\\Users\\Phong\\Desktop\\20t4\\QLNV\\QLNV\\QLNV.csproj",
         "projectName": "QLNV",
-        "projectPath": "C:\\Users\\PhongNV\\Documents\\Phong\\SSV\\QLNV\\QLNV\\QLNV.csproj",
-        "packagesPath": "C:\\Users\\PhongNV\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PhongNV\\Documents\\Phong\\SSV\\QLNV\\QLNV\\obj\\",
+        "projectPath": "C:\\Users\\Phong\\Desktop\\20t4\\QLNV\\QLNV\\QLNV.csproj",
+        "packagesPath": "C:\\Users\\Phong\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Phong\\Desktop\\20t4\\QLNV\\QLNV\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\PhongNV\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Phong\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -104,8 +104,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\PhongNV\\Documents\\Phong\\SSV\\QLNV\\DATA\\DATA.csproj": {
-                "projectPath": "C:\\Users\\PhongNV\\Documents\\Phong\\SSV\\QLNV\\DATA\\DATA.csproj"
+              "C:\\Users\\Phong\\Desktop\\20t4\\QLNV\\DATA\\DATA.csproj": {
+                "projectPath": "C:\\Users\\Phong\\Desktop\\20t4\\QLNV\\DATA\\DATA.csproj"
               }
             }
           }
@@ -163,7 +163,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

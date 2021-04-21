@@ -101,12 +101,44 @@ namespace QLNV.Controllers
             var nv = db.Nhanviens.Where(x => x.Id == id).FirstOrDefault();
             var typeofMail = nv.ChucvuId;
 
-            return new JsonResult(
+            var query = from x in db.Nhanviens
+                        where x.Id.Equals(id)
+                        select new
+                        {
+                            a1 = x.ChucvuId,
+                            a2 = x.Trangthai,
+                            a3=x.VitriId
+                        };
+            var l = query.FirstOrDefault().a3;
+            var data=new Noidungmail();
+            if (query.FirstOrDefault().a3 == 1)
+            {
+                 data = db.Noidungmails.Where(x => x.Loaimail == EMailType.MaiTTS).FirstOrDefault();
+            }
+            else if(query.FirstOrDefault().a3 == 2)
+            {
+                 data = db.Noidungmails.Where(x => x.Loaimail == EMailType.MailFresher).FirstOrDefault();
+            }
+            else if (query.FirstOrDefault().a3 == 3)
+            {
+                 data = db.Noidungmails.Where(x => x.Loaimail == EMailType.MailDev).FirstOrDefault();
+            }
+           
+
+             return new JsonResult(
                     new
                     {
-                        mes = "" + nv.Ten + ""
+                        title = ""+data.Tieude+"",
+                        noidung=""+data.Noidung+""
                     }
                 );
+        }
+
+
+        public PartialViewResult GetMailTemplateby(int id)
+        {
+            var data = new dbcontext().Nhanviens.Where(x => x.Id == id);
+            return PartialView(data.FirstOrDefault());
         }
     }
 }

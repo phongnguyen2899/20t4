@@ -16,6 +16,7 @@ namespace DATA.Entity
         public DbSet<Vitri> Vitris { get; set; }
         public DbSet<Nhanvien> Nhanviens { get; set; }
         public DbSet<Noidungmail> Noidungmails { get; set; }
+        public DbSet<Mailtonhanvien> Mailtonhanviens { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Chucvu>().HasKey(x => x.Id);
@@ -23,6 +24,11 @@ namespace DATA.Entity
             modelBuilder.Entity<Nhanvien>().HasKey(x => x.Id);
             modelBuilder.Entity<Nhanvien>().HasOne<Vitri>(x => x.Vitri).WithMany(m => m.Nhanviens).HasForeignKey(x => x.VitriId);
             modelBuilder.Entity<Nhanvien>().HasOne<Chucvu>(x => x.Chucvu).WithMany(m => m.Nhanviens).HasForeignKey(x => x.ChucvuId);
+
+
+            modelBuilder.Entity<Mailtonhanvien>().HasKey(x => x.NhanvienId);
+            modelBuilder.Entity<Nhanvien>().HasOne<Mailtonhanvien>(x => x.Mailtonhanvien).WithOne(m => m.Nhanvien);
+         //   modelBuilder.Entity<Nhanvien>().HasOne<Mailtonhanvien>(x => x.Mailtonhanvien).WithOne(a => a.Nhanvien).HasForeignKey(x=>x.NhanvienId);
         }
     }
 }

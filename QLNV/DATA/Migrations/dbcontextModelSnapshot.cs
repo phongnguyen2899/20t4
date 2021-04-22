@@ -34,6 +34,22 @@ namespace DATA.Migrations
                     b.ToTable("Chucvus");
                 });
 
+            modelBuilder.Entity("DATA.Entity.Mailtonhanvien", b =>
+                {
+                    b.Property<int>("NhanvienId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Noidung")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tieude")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("NhanvienId");
+
+                    b.ToTable("Mailtonhanviens");
+                });
+
             modelBuilder.Entity("DATA.Entity.Nhanvien", b =>
                 {
                     b.Property<int>("Id")
@@ -135,6 +151,15 @@ namespace DATA.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Vitris");
+                });
+
+            modelBuilder.Entity("DATA.Entity.Mailtonhanvien", b =>
+                {
+                    b.HasOne("DATA.Entity.Nhanvien", "Nhanvien")
+                        .WithOne("Mailtonhanvien")
+                        .HasForeignKey("DATA.Entity.Mailtonhanvien", "NhanvienId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DATA.Entity.Nhanvien", b =>

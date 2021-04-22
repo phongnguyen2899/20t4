@@ -4,9 +4,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using QLNV.Interface.Chucvu;
+using QLNV.Interface.Mail;
 using QLNV.Interface.NhanVien;
 using QLNV.Interface.Vitri;
 using QLNV.Repository.Chucvu;
+using QLNV.Repository.Mail;
 using QLNV.Repository.NhanVien;
 using QLNV.Repository.Vitri;
 using System;
@@ -29,13 +31,14 @@ namespace QLNV
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc().AddNewtonsoftJson();
 
             //DI
             services.AddTransient<IDuyetNhanVienRepository, DuyetNhanVienRepository>();
             services.AddTransient<IVitriRepository, VitriRepository>();
             services.AddTransient<IChucvuRepository, ChucvuRepository>();
             services.AddTransient<ILienHeRepository, LienHeNhanVienRepository>();
+            services.AddTransient<IMailRepository, MailRepository>();
             //services.AddRazorPages();
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromMinutes(5);
@@ -59,7 +62,6 @@ namespace QLNV
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-
         }
     }
 }

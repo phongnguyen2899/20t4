@@ -48,5 +48,7 @@ namespace DATA.Entity
         public DateTime ThoigianPV { get; set; }
 
         public int Diembaitest { get; set; }
+
+        public Mailtonhanvien Mailtonhanvien { get; set; }
     }
 }

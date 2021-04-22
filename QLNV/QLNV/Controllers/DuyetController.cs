@@ -2,9 +2,11 @@
 using DATA.Enum;
 using Microsoft.AspNetCore.Mvc;
 using QLNV.Interface.Chucvu;
+using QLNV.Interface.Mail;
 using QLNV.Interface.NhanVien;
 using QLNV.Interface.Vitri;
 using QLNV.Repository.NhanVien;
+using QLNV.Viewmodels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +19,14 @@ namespace QLNV.Controllers
         private readonly IDuyetNhanVienRepository _duyetNhanVienRepository;
         private readonly IVitriRepository _vitriRepository;
         private readonly IChucvuRepository _ChucvuRepository;
+        private readonly IMailRepository _mailRepository;
         public DuyetController(IDuyetNhanVienRepository duyetNhanVienRepository, IVitriRepository vitriRepository,
-            IChucvuRepository chucvuRepository)
+            IChucvuRepository chucvuRepository,IMailRepository mailRepository)
         {
             _duyetNhanVienRepository = duyetNhanVienRepository;
             _vitriRepository = vitriRepository;
             _ChucvuRepository = chucvuRepository;
+            _mailRepository = mailRepository;
         }
 
 
@@ -97,48 +101,86 @@ namespace QLNV.Controllers
 
         public JsonResult GetformMail(int id)
         {
-            dbcontext db = new dbcontext();
-            var nv = db.Nhanviens.Where(x => x.Id == id).FirstOrDefault();
-            var typeofMail = nv.ChucvuId;
 
-            var query = from x in db.Nhanviens
-                        where x.Id.Equals(id)
-                        select new
-                        {
-                            a1 = x.ChucvuId,
-                            a2 = x.Trangthai,
-                            a3=x.VitriId
-                        };
-            var l = query.FirstOrDefault().a3;
-            var data=new Noidungmail();
-            if (query.FirstOrDefault().a3 == 1)
-            {
-                 data = db.Noidungmails.Where(x => x.Loaimail == EMailType.MaiTTS).FirstOrDefault();
-            }
-            else if(query.FirstOrDefault().a3 == 2)
-            {
-                 data = db.Noidungmails.Where(x => x.Loaimail == EMailType.MailFresher).FirstOrDefault();
-            }
-            else if (query.FirstOrDefault().a3 == 3)
-            {
-                 data = db.Noidungmails.Where(x => x.Loaimail == EMailType.MailDev).FirstOrDefault();
-            }
-           
+            //lay nhan vien da duyet theo idNhanvien
+            var nv = _duyetNhanVienRepository.GetnhanviendaduyetbyId(id);
 
-             return new JsonResult(
+            //lay mau mail co trong bang Mailtonhanviens. neu khong co thi lay noi dung mail mac dinh trong bang
+            //noidungmail
+
+            var mailcontent = _mailRepository.GetnoidungmailbyID(id, nv.VitriId);
+
+            if (mailcontent.Id == 1)
+            {
+                return new JsonResult(
                     new
                     {
-                        title = ""+data.Tieude+"",
-                        noidung=""+data.Noidung+""
+                        tieude = mailcontent.Tieude,
+                        noidung = mailcontent.Noidung,
+                        thoigian = "" + nv.ThoigianPV + ""
+                    }
+                );
+            }
+
+            return new JsonResult(
+                    new
+                    {
+                        tieude = mailcontent.Tieude,
+                        noidung = "Xin chao " + nv.Ten + ", " + mailcontent.Noidung + "",
+                        thoigian = "" + nv.ThoigianPV + ""
+                    }
+                ); ;
+        }
+
+
+        [HttpPost]
+        public JsonResult UpdateContentMailforNhanvien([FromBody]MailCustomViewModel Mailcontext)
+        {
+            var db = new dbcontext();
+            var exsistMailfornhanvien = db.Mailtonhanviens.Where(x=>x.NhanvienId==Mailcontext.idnv ).FirstOrDefault();
+            if (exsistMailfornhanvien == null)
+            {
+                var newmailfornhanvien = new Mailtonhanvien()
+                {
+                    NhanvienId = Mailcontext.idnv,
+                    Tieude = Mailcontext.tieudemail,
+                    Noidung = Mailcontext.noidungmail
+                };
+                db.Mailtonhanviens.Add(newmailfornhanvien);
+                db.SaveChanges();
+                return new JsonResult(
+                    new
+                    {
+                        mes="thanh cong"
+                    }
+                );
+            }
+            else
+            {
+                exsistMailfornhanvien.Tieude = Mailcontext.tieudemail;
+                exsistMailfornhanvien.Noidung = Mailcontext.noidungmail;
+                db.SaveChanges();
+                return new JsonResult(
+                    new
+                    {
+                        mes = "thanh cong"
+                    }
+                );
+            }
+
+        }
+
+        public JsonResult GuimailALL([FromBody] ListMailCustomViewModel list)
+        {
+            int[] data = list.listId;
+            _mailRepository.Guimal(data);
+            return new JsonResult(
+                    new
+                    {
+                        mes = "thanh cong"
                     }
                 );
         }
 
-
-        public PartialViewResult GetMailTemplateby(int id)
-        {
-            var data = new dbcontext().Nhanviens.Where(x => x.Id == id);
-            return PartialView(data.FirstOrDefault());
-        }
     }
 }

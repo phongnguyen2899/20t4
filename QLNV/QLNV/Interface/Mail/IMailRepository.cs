@@ -11,5 +11,9 @@ namespace QLNV.Interface.Mail
     {
         bool Create(DATA.Entity.Noidungmail mail);
         Noidungmail GetbyId(EMailType type);
+
+        Noidungmail GetnoidungmailbyID(int Idnhanvien,int vitriid);
+
+        void Guimal(int[] Ids);
     }
 }

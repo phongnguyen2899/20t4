@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Phong\\Desktop\\20t4\\QLNV\\DATA\\DATA.csproj": {}
+    "C:\\Users\\PhongNV\\Documents\\Phong\\SSV\\QLNV\\DATA\\DATA.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Phong\\Desktop\\20t4\\QLNV\\DATA\\DATA.csproj": {
+    "C:\\Users\\PhongNV\\Documents\\Phong\\SSV\\QLNV\\DATA\\DATA.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Phong\\Desktop\\20t4\\QLNV\\DATA\\DATA.csproj",
+        "projectUniqueName": "C:\\Users\\PhongNV\\Documents\\Phong\\SSV\\QLNV\\DATA\\DATA.csproj",
         "projectName": "DATA",
-        "projectPath": "C:\\Users\\Phong\\Desktop\\20t4\\QLNV\\DATA\\DATA.csproj",
-        "packagesPath": "C:\\Users\\Phong\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Phong\\Desktop\\20t4\\QLNV\\DATA\\obj\\",
+        "projectPath": "C:\\Users\\PhongNV\\Documents\\Phong\\SSV\\QLNV\\DATA\\DATA.csproj",
+        "packagesPath": "C:\\Users\\PhongNV\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PhongNV\\Documents\\Phong\\SSV\\QLNV\\DATA\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Phong\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PhongNV\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -50,6 +50,10 @@
               "target": "Package",
               "version": "[3.0.0, )"
             },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[3.0.0, )"
@@ -76,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

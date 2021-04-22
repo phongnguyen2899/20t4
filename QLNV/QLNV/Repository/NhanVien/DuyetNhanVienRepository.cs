@@ -1,4 +1,5 @@
 ﻿using DATA.Entity;
+using DATA.Enum;
 using Microsoft.EntityFrameworkCore;
 using QLNV.Interface.NhanVien;
 using QLNV.Viewmodels;
@@ -50,12 +51,14 @@ namespace QLNV.Repository.NhanVien
             return await data.ToListAsync();
         }
 
+
         public async Task<List<DuyetNhanVienViewModel>> GetallDaduyetOK()
         {
             var data = from x in base._context.Nhanviens
                        join c in _context.Chucvus on x.ChucvuId equals c.Id
                        join v in _context.Vitris on x.VitriId equals v.Id
                        where x.Trangthai == DATA.Enum.ETrangthai.DuyetCV
+                       || x.Trangthai==ETrangthai.TestOk|| x.Trangthai == ETrangthai.Passv1 || x.Trangthai == ETrangthai.Passv2 
                        select new DuyetNhanVienViewModel
                        {
                            Id = x.Id,
@@ -72,6 +75,12 @@ namespace QLNV.Repository.NhanVien
                        };
          
             return  await data.ToListAsync();
+        }
+
+
+        public Nhanvien GetnhanviendaduyetbyId(int id)
+        {
+            return base._context.Nhanviens.Where(x=>x.Id==id).FirstOrDefault();
         }
 
         public bool LoaiCv(int id)

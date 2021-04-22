@@ -6,10 +6,13 @@ namespace DATA.Entity
 {
     public class Mailtonhanvien
     {
-        public int Id { get; set; }
+        public int NhanvienId { get; set; }
 
         public string Tieude { get; set; }
         public string Noidung { get; set; }
+
+
+        public Nhanvien Nhanvien { get; set;}
 
     }
 }

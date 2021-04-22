@@ -14,5 +14,7 @@ namespace QLNV.Interface.NhanVien
         bool LoaiCv(int id);
 
         Task<List<DuyetNhanVienViewModel>> GetallDaduyetOK();
+        Nhanvien GetnhanviendaduyetbyId(int id);
+
     }
 }

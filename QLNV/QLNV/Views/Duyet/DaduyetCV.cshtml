@@ -130,7 +130,7 @@
 <body>
     <div class="header">
         <div class="header-item">
-            <button class="btn btn-primary">Gửi Mail</button>
+            <button onclick="guimail()" class="btn btn-primary">Gửi Mail</button>
         </div>
         <div class="header-item">
             <button class="btn btn-primary">Tạo Nội Dung Gửi Mail</button>
@@ -160,26 +160,63 @@
         {
             <tr>
                 <td>
-                    <input class="checktosendmail" type="checkbox" />
+                    <input value="@item.Id" class="checktosendmail" type="checkbox" />
                 </td>
                 <td>@item.Id</td>
                 <td>@item.Tenchucvu</td>
                 <td>@item.Tenvitri</td>
                 <td>@item.Ten</td>
                 <td>@item.SDT</td>
-                <td>@item.Trangthailienhe</td>
-                <td>@item.ThoigianPV</td>
-                <td>@item.DiadiemPV</td>
-                <td>@item.Trangthai</td>
+                <td>
+                    <select>
+                        @switch (item.Trangthailienhe)
+                        {
+                            case DATA.Enum.ETrangthailienhe.Chualienhe:
+                                <option selected="selected" value="0">Chưa liên hệ</option>
+                                <option value="1">Không liên hệ được</option>
+                                <option value="2">Đã liên hệ</option>
+                                break;
+                            case DATA.Enum.ETrangthailienhe.Dalienhe:
+                                <option value="0">Chưa liên hệ</option>
+                                <option  value="1">Không liên hệ được</option>
+                                <option selected="selected" value="2">Đã liên hệ</option>
+                                break;
+                            case DATA.Enum.ETrangthailienhe.Khonglienhe:
+                                <option value="0">Chưa liên hệ</option>
+                                <option selected="selected" value="1">Không liên hệ được</option>
+                                <option  value="2">Đã liên hệ</option>
+                                break;
+                        }
+
+
+                    </select>
+                </td>
+                <td>
+                    @{
+                        var time = DateTime.ParseExact("0001-01-01 00:00:00.0000000", "yyyy-MM-dd HH:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
+                        if (item.ThoigianPV != time)
+                        {
+                            @item.ThoigianPV
+                        }
+                    }
+
+                </td>
+                <td>
+                    @item.DiadiemPV
+                </td>
                 <td>
                     @switch (item.Trangthai)
                     {
 
                     }
+                    
+                </td>
+                <td>
+                    <input value="@item.Diembaitest" />
                 </td>
                 <td>
                     <button onclick="showformmail(@item.Id)" type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">Preview Mail</button>
-                    <button type="button" class="btn btn-primary">Update</button>
+                    <button onclick="update(@item.Id)" type="button" class="btn btn-primary">Update</button>
                 </td>
             </tr>
         }
@@ -194,8 +231,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div id="modalmail" class="modal-body">
-                    <!--
+                <div class="modal-body" id="modalmail">
                         <form>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Tiêu đề</label>
@@ -206,16 +242,12 @@
                                 <textarea class="form-control" name="noidung" cols="40" rows="5"></textarea>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
-
-                        -->
-                    -->
                     
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button onclick="savechage()" type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -231,41 +263,65 @@
     var obj = [];
 
     var objchangemail = [];
+    var idtarget;
 
     function showformmail(id) {
+        idtarget = id;
         var html = "";
         var url = "/Duyet/GetformMail/" + id + "";
         fetch(url)
             .then(response => response.json())
             .then(function (data) {
-                var modal
                 console.log(data)
                 var obj = JSON.parse(JSON.stringify(data))
-
-                html = `<form>
+                html = `
                             <div class="form-group">
-                                <label for="exampleInputEmail1">${obj.title}</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="tieude">
+                                <label for="exampleInputEmail1"></label>
+                                <input type="email" value="${obj.tieude}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="tieude">
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">${obj.noidung}</label>
-                                <textarea class="form-control" name="noidung" cols="40" rows="5"></textarea>
+                                <label for="exampleInputPassword1"></label>
+                                <textarea class="form-control" id="txtnoidung"  name="noidung" cols="40" rows="5">${obj.noidung}.\n Thời gian phỏng vấn dự kiến là ${obj.thoigian}</textarea>
                             </div>
-
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>`;
-
+                        `;
                 var modal = document.getElementById('modalmail');
                 modal.innerHTML = html;
-
             })
-       
+
     }
 
+    function savechage() {
+        console.log(idtarget)
+        var tieude1 = document.querySelector('input[name="tieude"]').value;
+        var noidung1 = document.getElementById("txtnoidung").value;
+        var url = '/Duyet/UpdateContentMailforNhanvien'
+
+        var data = { idnv: idtarget, tieudemail: tieude1, noidungmail: noidung1 };
+        console.log(tieude1)
+        console.log(noidung1)
+
+        fetch(url, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(data)
+        })
+                .then(response => response.json())
+                .then(function (data) {
+                    var obj = JSON.parse(JSON.stringify(data))
+                    console.log(data)
+                    if (obj.mes == "thanh cong") {
+                        $('#exampleModalCenter').modal('hide')
+                    }
+                })
+
+    }
     function render() {
 
     }
-    
+
 
 
     function checkall(checkbox) {
@@ -283,4 +339,40 @@
             }
         }
     }
+    function guimail() {
+        var ckeckalltomail = document.getElementsByClassName('checktosendmail');
+        var arrID = [];
+        for (var i = 0; i < ckeckalltomail.length; i++) {
+            if (ckeckalltomail[i].checked == true) {
+                console.log(ckeckalltomail[i].value)
+                arrID.push(ckeckalltomail[i].value)
+            }
+        }
+
+
+        var data = {
+            listId: arrID
+        }
+        console.log(typeof (data))
+        var url ="/Duyet/GuimailALL"
+        fetch(url, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(function (data) {
+                var obj = JSON.parse(JSON.stringify(data))
+                console.log(data)
+            })
+    }
+
+    function update(id) {
+
+    }
+
+
 </script>

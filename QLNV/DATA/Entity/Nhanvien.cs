@@ -50,5 +50,6 @@ namespace DATA.Entity
         public int Diembaitest { get; set; }
 
         public Mailtonhanvien Mailtonhanvien { get; set; }
+        public int Nguoiphongvan { get; set; }
     }
 }

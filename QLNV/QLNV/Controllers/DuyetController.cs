@@ -115,9 +115,10 @@ namespace QLNV.Controllers
                 return new JsonResult(
                     new
                     {
+                        type="custom",
                         tieude = mailcontent.Tieude,
                         noidung = mailcontent.Noidung,
-                        thoigian = "" + nv.ThoigianPV + ""
+                        thoigian = ""
                     }
                 );
             }
@@ -125,6 +126,7 @@ namespace QLNV.Controllers
             return new JsonResult(
                     new
                     {
+                        type="default",
                         tieude = mailcontent.Tieude,
                         noidung = "Xin chao " + nv.Ten + ", " + mailcontent.Noidung + "",
                         thoigian = "" + nv.ThoigianPV + ""
@@ -182,5 +184,26 @@ namespace QLNV.Controllers
                 );
         }
 
+        [HttpPost]
+        public JsonResult UpdateTime([FromBody]UpdateTGPVViewModel model)
+        {
+
+            bool result = _duyetNhanVienRepository.chottime(model.id, model.thoigianpv, model.trangthailienhe);
+            if (result)
+            {
+                return new JsonResult(
+                    new
+                    {
+                        mes = "thanh cong"
+                    }
+                );
+            }
+            return new JsonResult(
+                    new
+                    {
+                        mes = "that bai"
+                    }
+                );
+        }
     }
 }

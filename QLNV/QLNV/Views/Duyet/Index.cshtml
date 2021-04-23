@@ -328,12 +328,10 @@
                 var obj = JSON.parse(JSON.stringify(data))
                 console.log(obj.mes)
                 if (obj.mes == "thanh cong") {
-
                     var btnduyet = document.getElementById("bntduyet_" + + id + "");
                     var action = btnduyet.parentElement;
                     var tr = action.parentElement;
                     tr.style.display = 'none';
-                    alert("thanh cong");
                 }
             })
     }

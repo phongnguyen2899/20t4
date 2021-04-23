@@ -140,3 +140,4 @@ C:\Users\PhongNV\Documents\Phong\SSV\QLNV\QLNV\bin\Debug\netcoreapp3.1\Microsoft
 C:\Users\PhongNV\Documents\Phong\SSV\QLNV\QLNV\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 C:\Users\PhongNV\Documents\Phong\SSV\QLNV\QLNV\bin\Debug\netcoreapp3.1\Common.dll
 C:\Users\PhongNV\Documents\Phong\SSV\QLNV\QLNV\bin\Debug\netcoreapp3.1\Common.pdb
+C:\Users\PhongNV\Documents\Phong\SSV\QLNV\QLNV\obj\Debug\netcoreapp3.1\Razor\Views\Calenda\Index.cshtml.g.cs

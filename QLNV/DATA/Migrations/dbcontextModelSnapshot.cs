@@ -87,6 +87,9 @@ namespace DATA.Migrations
                     b.Property<int>("Nguoigioithieu")
                         .HasColumnType("int");
 
+                    b.Property<int>("Nguoiphongvan")
+                        .HasColumnType("int");
+
                     b.Property<string>("SDT")
                         .HasColumnType("nvarchar(max)");
 

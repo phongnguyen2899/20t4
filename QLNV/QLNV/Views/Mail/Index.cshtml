@@ -22,17 +22,27 @@
 <body>
     <div class="form">
 
-        <form>
+        <form id="form"> 
             <div class="form-group">
                 <label for="exampleInputEmail1">Tiêu đề</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="tieude">
+                <input type="text" class="form-control" id="tieude" aria-describedby="emailHelp" placeholder="" name="tieude">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Nội dung</label>
-                <textarea class="form-control" name="noidung" cols="40" rows="5"></textarea>
+                <textarea class="form-control" id="noidung" name="noidung" cols="40" rows="5"></textarea>
             </div>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Kiểu</label>
+                <select  id="changeType" class="form-control form-select" aria-label="Default select example">
+                    <option selected>Chọn kiểu Email</option>
+                    @foreach(var item in ViewBag.MailType) { 
+                        <option value="@item.Loaimail">@item.Loaimail</option>
+                    }
+                    
+                </select>
+            </div>
+            
+            <button id="update" type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 
@@ -43,5 +53,43 @@
 </html>
 <script>
 
+    var idtarget
+    var changeItem = document.getElementById('changeType');
+    changeItem.onchange = function (e) {
+        console.log(e.target.value)
+        fetch("/Mail/GetByType/" + e.target.value + "")
+            .then(response => response.json())
+            .then(data => {
+                var tieude = document.getElementById('tieude');
+                var noidung = document.getElementById('noidung');
+                var obj = JSON.parse(JSON.stringify(data))
+                tieude.value = obj.title;
+                noidung.value = obj.content
+                idtarget = obj.id;
+            })
+    }
 
+    var form = document.getElementById('form');
+    form.onsubmit = function (e) {
+        var data = {
+            Id: idtarget,
+            Tieude: document.getElementById('tieude').value,
+            Noidung: document.getElementById('noidung').value,
+            Loaimail:2
+        }
+        console.log(data)
+        fetch('/Mail/UpdateMailContent', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert("Cập nhật thành công")
+            })
+        e.preventDefault();
+    }
 </script>

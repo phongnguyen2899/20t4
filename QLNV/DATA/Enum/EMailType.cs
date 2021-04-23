@@ -10,6 +10,7 @@ namespace DATA.Enum
         MailV1=1,
         MailV2=2,
         MailFresher=3,
-        MailDev=4
+        MailDev=4,
+        MailDevV2=5
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DATA.Entity;
+using DATA.Enum;
 using QLNV.Viewmodels;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,6 @@ namespace QLNV.Interface.NhanVien
         Task<List<DuyetNhanVienViewModel>> GetallDaduyetOK();
         Nhanvien GetnhanviendaduyetbyId(int id);
 
+        bool chottime(int idNV, DateTime thoigianpv, ETrangthailienhe trangthailh);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Common;
 using DATA.Entity;
 using DATA.Enum;
+using Microsoft.EntityFrameworkCore;
 using QLNV.Interface.Mail;
 using QLNV.Repository.NhanVien;
 using System;
@@ -18,6 +19,13 @@ namespace QLNV.Repository.Mail
             throw new NotImplementedException();
         }
 
+        
+        public async  Task<List<Noidungmail>> Getall()
+        {
+            IQueryable<DATA.Entity.Noidungmail> data = base._context.Noidungmails;
+            return await data.ToListAsync();
+        }
+
         public Noidungmail GetbyId(EMailType type)
         {
             var data = base._context.Noidungmails.Where(x => x.Loaimail == type).FirstOrDefault();
@@ -30,6 +38,8 @@ namespace QLNV.Repository.Mail
         public Noidungmail GetnoidungmailbyID(int Idnhanvien, int vitriid)
         {
             var mailtonhanvien = base._context.Mailtonhanviens.Where(x => x.NhanvienId == Idnhanvien).FirstOrDefault();
+            var nhanvien = base._context.Nhanviens.Find(Idnhanvien);
+
             if (mailtonhanvien == null)
             {
                 var noidungmail = new Noidungmail();
@@ -90,6 +100,20 @@ namespace QLNV.Repository.Mail
                     }
                 }
             }
+        }
+
+        public bool Update(Noidungmail model)
+        {
+            var mail = _context.Noidungmails.Where(x => x.Id == model.Id).FirstOrDefault();
+            if (mail != null)
+            {
+                mail.Tieude = model.Tieude;
+                mail.Noidung = model.Noidung;
+
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -12,6 +12,21 @@ namespace QLNV.Repository.NhanVien
 {
     public class DuyetNhanVienRepository :BaseRepository,IDuyetNhanVienRepository
     {
+        public bool chottime(int idNV,DateTime thoigianpv,ETrangthailienhe trangthailh)
+        {
+            var nhanvien = base._context.Nhanviens.Where(x => x.Id == idNV).FirstOrDefault();
+            if (nhanvien == null)
+            {
+                return false;
+            }
+
+            nhanvien.Trangthailienhe = trangthailh;
+            
+            nhanvien.ThoigianPV = thoigianpv;
+            _context.SaveChanges();
+            return true;
+        }
+
         public bool DuyetCv(int id)
         {
             try

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DATA.Entity;
+using Microsoft.EntityFrameworkCore;
 using QLNV.Interface.NhanVien;
 using QLNV.Viewmodels;
 using System;
@@ -10,6 +11,30 @@ namespace QLNV.Repository.NhanVien
 {
     public class LienHeNhanVienRepository : BaseRepository, ILienHeRepository
     {
+        public bool Datlich(DatlichViewModel model)
+        {
+            var nhanvien = base._context.Nhanviens.Where(x => x.Id == model.Id).FirstOrDefault();
+            if (nhanvien != null)
+            {
+                
+                try
+                {
+                    nhanvien.Nguoiphongvan = model.Idnguoipv;
+                    nhanvien.ThoigianPV = model.Ngaypv;
+                    nhanvien.DiadiemPV = model.Diadiempv;
+                    var nguoipv = _context.Nhanviens.Find(model.Idnguoipv);
+                    nhanvien.Ghichu = "" + nguoipv.Ten + " Phỏng vấn";
+                    _context.SaveChanges();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+
         public async Task<List<LienHeNhanVienViewModel>> GetAll()
         {
             var data = from x in base._context.Nhanviens
@@ -34,6 +59,16 @@ namespace QLNV.Repository.NhanVien
 
             var y = data.ToList();
             return await data.ToListAsync();
+        }
+
+        public async Task<List<Nhanvien>> GetAllNguoiPV()
+        {
+            return base._context.Nhanviens.Where(x => x.Trangthai == DATA.Enum.ETrangthai.AllOk).ToList();
+        }
+
+        public Nhanvien GetbyId(int id)
+        {
+            return base._context.Nhanviens.Where(x => x.Id == id).FirstOrDefault();
         }
     }
 }

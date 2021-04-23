@@ -146,33 +146,167 @@
 
         @foreach (var item in Model)
         {
-            <tr>
+            <tr id="row_@item.Id">
                 <td>@item.Id</td>
                 <td>@item.Ten</td>
                 <td>@item.Tenvitri</td>
                 <td>@item.Tenchucvu</td>
                 <td>@item.Email</td>
                 <td>@item.SDT</td>
-                <td>@item.ThoigianPV</td>
-                <td>@item.DiadiemPV</td>
-                <td>@item.Ghichu</td>
-                <td>@item.Trangthai</td>
-                <td>
-                    @switch (item.Trangthai)
-                    {
-                        
+                <td id="trthoigian">
+                    @{
+                        var time = DateTime.Parse("0001-01-01 00:00:00.0000000");
+                        if (item.ThoigianPV != time)
+                        {
+                            @item.ThoigianPV
+                        }
                     }
                 </td>
+                <td id="trdiadiem">@item.DiadiemPV</td>
+                <td id="trghichu">@item.Ghichu</td>
+                <td>@item.Trangthai</td>
+                <td>
+                    <button onclick="Momodal(@item.Id)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                        Đặt Lịch
+                    </button>
             </tr>
         }
     </table>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
 
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Người phỏng vấn</label>
+                        <select class="form-control form-select" aria-label="Default select example">
+                            <option selected>Open this select menu</option>
+                            @foreach (var item in Model)
+                            {
+                                <option value="@item.Id">@item.Nguoigioithieu</option>
+
+                            }
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Ngày phỏng vấn</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Địa điểm</label>
+                        <select class="form-control form-select" aria-label="Default select example">
+                            <option selected>Chọn địa điểm phỏng vấn</option>
+                            <option value="1">Hà Nội</option>
+                            <option value="2">Huế</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button onclick="datlich()" type="button" class="btn btn-primary">Tạo</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="~/Bootsrap/bootstrap-4.0.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
 <script>
+
+    var idtarget;
+    function Momodal(id) {
+        idtarget = id;
+        var html = '';
+        var url = `/LienHe/LoadDatLich/${idtarget}`
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                var obj = JSON.parse(JSON.stringify(data))
+
+                var dsnguoipv = obj.nguoipv.result;
+                console.log(dsnguoipv)
+                var thoigian = obj.ngaypv;
+                html = `<div class="form-group">
+                        <label for="exampleInputEmail1">Người phỏng vấn</label>
+                        <select id="fnguoipv" class="form-control form-select" aria-label="Default select example">`
+                for (var i = 0; i < dsnguoipv.length; i++) {
+                    html += `<option value="${dsnguoipv[i].id}">${dsnguoipv[i].ten}</option>`
+                }
+
+                html += `
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label  for="exampleInputEmail1" value="${thoigian}">Ngày phỏng vấn</label>
+
+                        <input id="fthoigianpv" class="form-control" type="datetime-local" value="${thoigian}" >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Địa điểm</label>
+                        <select id="fdiadiem" class="form-control form-select" aria-label="Default select example">
+                            <option selected>Chọn địa điểm phỏng vấn</option>
+                            <option value="Hà Nội">Hà Nội</option>
+                            <option value="Huế">Huế</option>
+                        </select>
+                    </div>`
+                var modalbody = document.getElementsByClassName("modal-body")[0];
+                modalbody.innerHTML = html
+            })
+    }
+    function datlich() {
+        console.log(idtarget)
+        var nguoipv = document.getElementById('fnguoipv');
+        console.log(nguoipv.value)
+        var thoigianpv = document.getElementById('fthoigianpv');
+        console.log(thoigianpv.value)
+        var diadiem = document.getElementById('fdiadiem')
+        console.log(diadiem.value)
+
+        var url='/LienHe/DatLich'
+        var data = {
+            Id: idtarget,
+            Idnguoipv: nguoipv.value,
+            Ngaypv: thoigianpv.value,
+            Diadiempv: diadiem.value
+        }
+
+        console.log(data)
+        fetch(url, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                var obj = JSON.parse(JSON.stringify(data))
+                console.log(obj.mes)
+                if (obj.mes == "thanh cong") {
+                    $('#exampleModalCenter').modal('hide')
+                }
+                var row = document.getElementById('row_' + idtarget + '')
+                var td = row.getElementsByTagName('td');
+                td[6].innerText = thoigianpv.value
+                td[7].innerText = diadiem.value
+            })
+    }
 
 
 </script>

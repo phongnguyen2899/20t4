@@ -133,7 +133,7 @@
             <button onclick="guimail()" class="btn btn-primary">Gửi Mail</button>
         </div>
         <div class="header-item">
-            <button class="btn btn-primary">Tạo Nội Dung Gửi Mail</button>
+            <a class="btn btn-primary" href="/Mail/">Tạo Nội Dung Gửi Mail</a>
         </div>
 
     </div>
@@ -168,23 +168,23 @@
                 <td>@item.Ten</td>
                 <td>@item.SDT</td>
                 <td>
-                    <select>
+                    <select class="form-control form-select"  id="select_id_@item.Id">
                         @switch (item.Trangthailienhe)
                         {
                             case DATA.Enum.ETrangthailienhe.Chualienhe:
                                 <option selected="selected" value="0">Chưa liên hệ</option>
-                                <option value="1">Không liên hệ được</option>
-                                <option value="2">Đã liên hệ</option>
+                                <option value="1">Đã liên hệ</option>
+                                <option value="2">Không liên hệ được</option>
                                 break;
                             case DATA.Enum.ETrangthailienhe.Dalienhe:
                                 <option value="0">Chưa liên hệ</option>
-                                <option  value="1">Không liên hệ được</option>
-                                <option selected="selected" value="2">Đã liên hệ</option>
+                                <option selected="selected" value="1">Đã liên hệ</option>
+                                <option  value="2">Không liên hệ được</option>
                                 break;
                             case DATA.Enum.ETrangthailienhe.Khonglienhe:
                                 <option value="0">Chưa liên hệ</option>
-                                <option selected="selected" value="1">Không liên hệ được</option>
-                                <option  value="2">Đã liên hệ</option>
+                                <option  value="1">Đã liên hệ</option>
+                                <option selected="selected" value="2">Không liên hệ được</option>
                                 break;
                         }
 
@@ -193,11 +193,10 @@
                 </td>
                 <td>
                     @{
-                        var time = DateTime.ParseExact("0001-01-01 00:00:00.0000000", "yyyy-MM-dd HH:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
-                        if (item.ThoigianPV != time)
-                        {
-                            @item.ThoigianPV
-                        }
+                        var time= item.ThoigianPV.ToString("yyyy-MM-dd HH:mm:ss").Replace(' ', 'T');
+                        <div class="col-10">
+                            <input class="form-control" type="datetime-local" value="@time" id="time_id_@item.Id">
+                        </div>
                     }
 
                 </td>
@@ -274,7 +273,8 @@
             .then(function (data) {
                 console.log(data)
                 var obj = JSON.parse(JSON.stringify(data))
-                html = `
+                if (obj.type == 'default') {
+                    html = `
                             <div class="form-group">
                                 <label for="exampleInputEmail1"></label>
                                 <input type="email" value="${obj.tieude}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="tieude">
@@ -284,6 +284,21 @@
                                 <textarea class="form-control" id="txtnoidung"  name="noidung" cols="40" rows="5">${obj.noidung}.\n Thời gian phỏng vấn dự kiến là ${obj.thoigian}</textarea>
                             </div>
                         `;
+                }
+                else {
+                    html = `
+                            <div class="form-group">
+                                <label for="exampleInputEmail1"></label>
+                                <input type="email" value="${obj.tieude}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="tieude">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1"></label>
+                                <textarea class="form-control" id="txtnoidung"  name="noidung" cols="40" rows="5">${obj.noidung}</textarea>
+                            </div>
+                        `;
+                }
+                
+
                 var modal = document.getElementById('modalmail');
                 modal.innerHTML = html;
             })
@@ -371,7 +386,32 @@
     }
 
     function update(id) {
+        
+        console.log(id)
+        var lienhe = document.getElementById("select_id_" + id + "").value;
+        var thoigianpv = document.getElementById("time_id_" + id + "").value;
+        console.log(lienhe)
+        console.log(thoigianpv)
+        var url = "/Duyet/UpdateTime"
+        var data = {
+            id:id,
+            thoigianpv:thoigianpv,
+            trangthailienhe:lienhe
+        }
 
+        fetch(url, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data =>
+                alert("thanh cong")
+                )
+            
     }
 
 

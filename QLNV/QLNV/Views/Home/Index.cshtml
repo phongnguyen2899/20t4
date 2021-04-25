@@ -1,146 +1,20 @@
-﻿@*
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shered/_Layout.cshtml";
+}
+
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
-}
 @model IEnumerable<QLNV.Models.NhanvienViewModel>
 @using System.IO;
 <style>
-    * {
-        margin: 0;
-        padding: 0px;
-        font-family: "Helvetica";
+    table{
+        width:87%;
     }
-    body{
-        margin:0 20px;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top:20px;
-    }
-
-    th, td {
-        padding: 8px;
-        border: 1px solid #dee2e6;
-    }
-    tr:first-child {
-        background: #212529;
-        color:white;
-    }
-
-    th {
-        height: 40px;
-        text-align: left;
-    }
-    a{
-        text-decoration:none;
-        color:#000;
-    }
-    .header{
-        display:flex;
-        justify-content:space-between;
-    }
-    .search{
-
-    }
-    .search input{
-
-    }
-    .search a{
-    }
-    .header{
-        margin-top:10px;
-        display:flex;
-        height:38px;
-        align-items:center;
-    }
-    .search_header{
-        display:flex;
-    }
-        .search_header .btn_search {
-            background-color: #4e92df;
-            border: none;
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            height:100%;
-            margin:0;
-            padding:10px 20px;
-        }
-
-        .search_header input:first-child {
-            width: 200px;
-            margin-right: 10px;
-            outline: none;
-            padding-left: 10px;
-            border: 1px solid #4e92df;
-        }
-    .link_btn {
-        background-color: #4e92df;
-        font-size: 16px;
-        color: white;
-        padding: 10px 20px;
-        border-radius:2px;
-    }
-    .btn_search:hover {
-        background: #2e7dd6;
-        transition: 0,4s;
-    }
-    .link_btn:hover {
-        background: #2e7dd6;
-        transition:0,4s;
-    }
-    .dowload{
-    }
-    .view:hover {
-        color: #2e7dd6;
-    }
-    body{
-        display:flex;
-        margin:0px;
-        padding:0px;
-    }
-    .menu {
-        width: 200px;
-        background: #283237;
-    }
-        .menu ul{
-            margin:50px 0px 0px 50px;
-        }
-        .menu ul li {
-            list-style: none;
-            margin:20px;
-        }
-            .menu ul li a {
-                text-decoration: none;
-                color: #8a9199;
-                font-size:20px;
-            }
-        .menu ul li a:hover{
-            cursor:pointer;
-            color:#e8f0f9;
-        }
-    .content{
-        margin-left:10px;
-    }
-
 </style>
 
-
-<body>
-    <div class="menu">
-        <ul>
-            <li><a href="/Home">Home</a></li>
-            <li><a href="/Duyet">Duyệt CV</a></li>
-            <li><a href="/Duyet/DaduyetCV">Gửi Mail</a></li>
-            <li><a href="/LienHe">Đặt Lịch</a></li>
-        </ul>
-    </div>
-    <div class="content">
         <div class="header">
             <a class="link_btn" style="font-size:16px;" href="/Home/Create">Thêm Mới</a>
 
@@ -151,7 +25,7 @@
         </div>
 
 
-        <table>
+        <table style="width:100%;">
             <tr>
                 <th>ID</th>
                 <th>Tên chức vụ</th>
@@ -202,9 +76,7 @@
                 </tr>
             }
         </table>
-    </div>
-    
-</body>
+
 <script>
 
     function deleteconfirm(id) {
@@ -229,7 +101,7 @@
                 else {
                     alert('that bai')
                 }
-                
+
             })
     }
     function deleteRow(btn) {
@@ -244,7 +116,9 @@
         }
     }
 
-  
+
 </script>
+
+
 
 

@@ -7,3 +7,12 @@ C:\Users\PhongNV\Documents\Phong\SSV\QLNV\Common\obj\Debug\netcoreapp3.1\Common.
 C:\Users\PhongNV\Documents\Phong\SSV\QLNV\Common\obj\Debug\netcoreapp3.1\Common.csproj.CoreCompileInputs.cache
 C:\Users\PhongNV\Documents\Phong\SSV\QLNV\Common\obj\Debug\netcoreapp3.1\Common.dll
 C:\Users\PhongNV\Documents\Phong\SSV\QLNV\Common\obj\Debug\netcoreapp3.1\Common.pdb
+C:\Users\Phong\Desktop\20t4\QLNV\Common\bin\Debug\netcoreapp3.1\Common.deps.json
+C:\Users\Phong\Desktop\20t4\QLNV\Common\bin\Debug\netcoreapp3.1\Common.dll
+C:\Users\Phong\Desktop\20t4\QLNV\Common\bin\Debug\netcoreapp3.1\Common.pdb
+C:\Users\Phong\Desktop\20t4\QLNV\Common\obj\Debug\netcoreapp3.1\Common.csprojAssemblyReference.cache
+C:\Users\Phong\Desktop\20t4\QLNV\Common\obj\Debug\netcoreapp3.1\Common.AssemblyInfoInputs.cache
+C:\Users\Phong\Desktop\20t4\QLNV\Common\obj\Debug\netcoreapp3.1\Common.AssemblyInfo.cs
+C:\Users\Phong\Desktop\20t4\QLNV\Common\obj\Debug\netcoreapp3.1\Common.csproj.CoreCompileInputs.cache
+C:\Users\Phong\Desktop\20t4\QLNV\Common\obj\Debug\netcoreapp3.1\Common.dll
+C:\Users\Phong\Desktop\20t4\QLNV\Common\obj\Debug\netcoreapp3.1\Common.pdb

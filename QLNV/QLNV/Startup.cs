@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using QLNV.Interface.Calenda;
 using QLNV.Interface.Chucvu;
 using QLNV.Interface.Mail;
 using QLNV.Interface.NhanVien;
 using QLNV.Interface.Vitri;
+using QLNV.Repository.Calenda;
 using QLNV.Repository.Chucvu;
 using QLNV.Repository.Mail;
 using QLNV.Repository.NhanVien;
@@ -39,6 +41,7 @@ namespace QLNV
             services.AddTransient<IChucvuRepository, ChucvuRepository>();
             services.AddTransient<ILienHeRepository, LienHeNhanVienRepository>();
             services.AddTransient<IMailRepository, MailRepository>();
+            services.AddTransient<ICalendaRepositorycs, CalendaRepository>();
             //services.AddRazorPages();
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromMinutes(5);

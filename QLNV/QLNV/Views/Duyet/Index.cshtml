@@ -138,6 +138,11 @@
             .filter_item input {
                 height: 100%;
             }
+
+        .modal-ku {
+            width: 750px;
+            margin: auto;
+        }
     </style>
 
 
@@ -281,7 +286,7 @@
         console.log(modalPDF);
         console.log(btn.getAttribute('data-pdf'));
         var html = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
+                                    <div class="modal-dialog modal-ku" width="150%" role="document" style="max-width: 80%;">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
@@ -290,7 +295,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <iframe src="/uploads/${btn.getAttribute('data-pdf')}" title="W3Schools Free Online Web Tutorials"></iframe>
+                                                <iframe width="100%" height="400px" src="/uploads/${btn.getAttribute('data-pdf')}" title="W3Schools Free Online Web Tutorials"></iframe>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" id="btn_${id}" onclick="loaiungvien(${id})" class="btn btn-danger" data-dismiss="modal">Loại</button>

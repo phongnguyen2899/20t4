@@ -8,19 +8,19 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\Phong\\.nuget\\packages\\": {}
+    "C:\\Users\\PhongNV\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Phong\\Desktop\\20t4\\QLNV\\WebApplication1\\WebApplication1.csproj",
+      "projectUniqueName": "C:\\Users\\PhongNV\\Desktop\\20t4\\QLNV\\WebApplication1\\WebApplication1.csproj",
       "projectName": "WebApplication1",
-      "projectPath": "C:\\Users\\Phong\\Desktop\\20t4\\QLNV\\WebApplication1\\WebApplication1.csproj",
-      "packagesPath": "C:\\Users\\Phong\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Phong\\Desktop\\20t4\\QLNV\\WebApplication1\\obj\\",
+      "projectPath": "C:\\Users\\PhongNV\\Desktop\\20t4\\QLNV\\WebApplication1\\WebApplication1.csproj",
+      "packagesPath": "C:\\Users\\PhongNV\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\PhongNV\\Desktop\\20t4\\QLNV\\WebApplication1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Phong\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\PhongNV\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -63,7 +63,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

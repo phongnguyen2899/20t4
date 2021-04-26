@@ -31,6 +31,7 @@ namespace QLNV.Controllers
                 ngaypv = nhanvien.ThoigianPV
             });
         }
+     
 
         [HttpPost]
         public JsonResult DatLich([FromBody]DatlichViewModel model)
